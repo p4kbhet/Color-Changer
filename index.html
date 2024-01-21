@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Changer with Background Animation</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #634832;
+            transition: background-color 0.5s ease; 
+            font-family: 'Courier New', Courier, monospace
+        }
+
+        #colorBox {
+            width: 300px;
+            height: 300px;
+            background-color: green;
+            margin: 20px;
+            transition: background-color 0.5s ease, transform 0.5s ease-in-out;
+        }
+
+        #colorButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        #colorButton:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript colorChanger() with Background Animation Hands-On</h1>
+    
+    <button id="colorButton">Click Me</button>
+    <div id="colorBox"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var colorButton = document.getElementById('colorButton');
+            var colorBox = document.getElementById('colorBox');
+
+            colorButton.addEventListener('click', function() {
+                document.body.style.backgroundColor = (document.body.style.backgroundColor === 'rgb(99, 72, 50)') ? 'rgb(219, 193, 172)' : 'rgb(99, 72, 50)';
+
+                if (colorBox.style.backgroundColor === 'green') {
+                    colorBox.style.backgroundColor = 'blue';
+                    moveAnimation();
+                } else {
+                    colorBox.style.backgroundColor = 'green';
+                    moveAnimation();
+                }
+                
+                colorButton.style.transform = 'scale(1.1)';
+                setTimeout(function() {
+                    colorButton.style.transform = 'scale(1)';
+                }, 300);
+            });
+
+            function moveAnimation() {
+                var pos = 0;
+                var id = setInterval(frame, 10);
+
+                function frame() {
+                    if (pos == 100) {
+                        clearInterval(id);
+                    } else {
+                        pos++; 
+                        colorBox.style.transform = 'translate(' + pos + 'px, ' + pos + 'px)';
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
